@@ -3,6 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Agressores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+        hr {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Lista de Agressores</h1>
@@ -12,10 +37,15 @@
                 <strong>Nome:</strong> {{ agressor.nome }} <br>
                 <strong>Idade:</strong> {{ agressor.idade }} <br>
                 <strong>CPF:</strong> {{ agressor.cpf }} <br>
+                <strong>Nome Social:</strong> {{ agressor.nome_social }} <br>
+                <strong>Sexo:</strong> {{ agressor.sexo }} <br>
+                <strong>Email:</strong> {{ agressor.email }} <br>
+                <strong>Telefone:</strong> {{ agressor.telefone }} <br>
+                <strong>Profissão:</strong> {{ agressor.profissao }} <br>
                 
                 {% if agressor.foto %}
                     <strong>Foto:</strong><br>
-                    <img src="{{ agressor.foto.url }}" alt="Foto de {{ agressor.nome }}" style="max-width: 200px; height: auto;"><br>
+                    <img src="{{ agressor.foto.url }}" alt="Foto de {{ agressor.nome }}"><br>
                 {% endif %}
                 
                 <strong>Última Vítima:</strong> 
@@ -27,11 +57,7 @@
                 
                 <strong>Ficha Criminal:</strong><br>
                 {% if agressor.ficha_criminal %}
-                    <ul>
-                        {% for crime in agressor.ficha_criminal.incidentes %}
-                            <li>{{ crime.data }}: {{ crime.descricao }}</li>
-                        {% endfor %}
-                    </ul>
+                    {{ agressor.ficha_criminal }}<br>
                 {% else %}
                     Nenhuma ficha criminal registrada.<br>
                 {% endif %}

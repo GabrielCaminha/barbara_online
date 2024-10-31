@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 class ListaContatos(models.Model):
     contato_nome = models.CharField(max_length=100, default='Sem Nome')
-    contato_telefone = models.CharField(max_length=15, default='Sem Telefone')
+    contato_telefone = models.CharField(max_length=20, default='Sem Telefone')
 
     def __str__(self):
         return f'{self.contato_nome} ({self.contato_telefone})'
@@ -22,7 +22,7 @@ class Vitima(models.Model):
     email = models.EmailField(max_length=254, unique=True, blank=True, null=True)
     endereco = models.TextField(default='Endereço não informado')
     ocupacao = models.CharField(max_length=100, blank=True, null=True)
-    telefone = models.CharField(max_length=15, default='Sem Telefone')
+    telefone = models.CharField(max_length=20, default='Sem Telefone')
     lista_contatos = models.ForeignKey(ListaContatos, on_delete=models.CASCADE, default=None)
     estado_atual = models.TextField(default='Estado atual não informado')
     medida_protetiva = models.BooleanField(default=False)
@@ -48,7 +48,7 @@ class Agressor(models.Model):
     nome = models.CharField(max_length=100, default='Sem Nome')
     sexo = models.CharField(max_length=100, default='Nao Informado')
     email = models.EmailField(max_length=254, unique=True, blank=True, null=True)
-    telefone = models.CharField(max_length=15, default='Sem Telefone')
+    telefone = models.CharField(max_length=20, default='Sem Telefone')
     nome_social = models.CharField(max_length=100, default='Sem Nome Social Informado')
     profissao = models.CharField(max_length=100, default='Nao Informado')
     relacao_vitima = models.BooleanField(default=False)
@@ -56,7 +56,7 @@ class Agressor(models.Model):
     filhos_vitima = models.BooleanField(default=False)
     foto = models.ImageField(upload_to='fotos_agressores/', null=True, blank=True)  
     ultima_vitima = models.ForeignKey(Vitima, on_delete=models.SET_NULL, null=True, blank=True)  
-    ficha_criminal = models.JSONField(default=list)  
+    ficha_criminal = models.TextField(default='Não informada', blank=True, null=True)  
     vitimas = models.ManyToManyField(Vitima, related_name='agressores', blank=True) 
 
     def __str__(self):
@@ -97,7 +97,7 @@ class BotaoPanico(models.Model):
     hora = models.TimeField(default=timezone.now)
     vitima = models.ForeignKey(Vitima, on_delete=models.CASCADE)
     localizacao = models.TextField(default='Endereço não informado')
-    telefone_vitima = models.CharField(max_length=15, default='Sem Telefone')
+    telefone_vitima = models.CharField(max_length=20, default='Sem Telefone')
     status = models.CharField(max_length=20, default='Ativo')
 
     def __str__(self):
@@ -107,7 +107,7 @@ class BotaoPanico(models.Model):
 class Denuncia(models.Model):
     orgao_destinatario = models.CharField(max_length=100)
     email_remetente = models.EmailField(max_length=254, default='Denuncia Anonima')
-    telefone_remetente = models.CharField(max_length=15, default='Denuncia Anonima')
+    telefone_remetente = models.CharField(max_length=20, default='Denuncia Anonima')
     nome_remetente = models.CharField(max_length=100, default='Denuncia Anonima')
     nome_destinatario = models.CharField(max_length=100, null=True, blank=True, default="Nao Informado")
     assunto = models.CharField(max_length=100, default='Nao Informado')
@@ -124,7 +124,7 @@ class Formulario_Contato(models.Model):
     assunto = models.CharField(max_length=100, default='Nao Informado')
     conteudo = models.TextField(default='Não informado')
     email_remetente = models.EmailField(max_length=254, default='Nao Informado')
-    telefone_remetente = models.CharField(max_length=15, default='Nao Informado')
+    telefone_remetente = models.CharField(max_length=20, default='Nao Informado')
     nome_remetente = models.CharField(max_length=100, default='Nao Informado')
 
     def __str__(self):
