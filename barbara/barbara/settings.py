@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os 
+from dj_database_url import parse as db_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,9 +25,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-+$a&=%9(644ogkw0fw=y*k%^e)l-)^vl_$jz!5rgauhr%y%1@4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.railway.app']
 
 
 # Application definition
@@ -74,14 +75,7 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'barbara',  
-        'USER': 'postgres',
-        'PASSWORD': '562701',
-        'HOST': 'localhost',  
-        'PORT': '5432',       
-    }
+    'default': db_url(os.environ.get('DATABASE_URL'))
 }
 
 
